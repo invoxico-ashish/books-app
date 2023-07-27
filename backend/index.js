@@ -32,7 +32,12 @@ app.post("/bookscreate", (req, res) => {
       "insert into books (`title`,`description`,`price`,`cover`) values(?)";
     const values = [title, description, price, cover];
     db.query(q, [values], (err, data) => {
-      res.json("success");
+      res.status(200).json({
+        success: true,
+        message: "Successfully created",
+        values,
+        data,
+      });
     });
   } catch (err) {
     console.log(err);
@@ -68,7 +73,7 @@ app.delete("/delete/:id", async (req, res) => {
 //UPDATE METHOD
 
 app.put("/updatebooks/:id", async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const id = req.params.id;
   const q =
     "UPDATE books SET `title` = ?,`description` = ?,`price` = ?,`cover` = ? WHERE id =?";
@@ -79,7 +84,7 @@ app.put("/updatebooks/:id", async (req, res) => {
       req.body.price,
       req.body.cover,
     ];
-    console.log(values,id)
+    console.log(values, id);
 
     await db.query(q, [...values, id], (err, data) => {
       if (!err) {

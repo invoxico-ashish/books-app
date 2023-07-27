@@ -9,6 +9,7 @@ function AddBooks() {
     price: "",
     cover: "",
   });
+  console.log(book)
   const [error, setError] = useState(false);
   const Navigate = useNavigate();
 
